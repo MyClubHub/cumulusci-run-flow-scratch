@@ -44,7 +44,7 @@ runs:
           org-name: dev-hub
           dev-hub: true
       - name: Run Flow
-        uses: MyClubHub/cumulusci-run-flow-scratch
+        uses: MyClubHub/cumulusci-run-flow
         with:
           org-name: '${{ inputs.org-name }}'
           flow-name: '${{ inputs.flow-name }}'
