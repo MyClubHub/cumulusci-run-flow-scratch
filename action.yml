@@ -28,6 +28,10 @@ inputs:
     description: 'Value to prefix before regex result in commit status value'
     required: false
     default:
+  use-sf:
+    description: 'Option to use sf cli over sfdx cli'
+    required: false
+    default: 'False'
 runs:
     using: "composite"
     steps:
@@ -37,6 +41,7 @@ runs:
         with:
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           sfdx-version: '${{ inputs.sfdx-version }}'
+          use-sf: '${{ inputs.use-sf }}'
       - name: Authorize Dev Hub
         uses: cumulus-actions/authorize-org@v1
         with:
