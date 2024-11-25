@@ -4,7 +4,7 @@ inputs:
   cumulusci-version:
     description: 'version of CumulusCI to install'
     required: false
-  sfdx-version:
+  sf-version:
     description: 'version of SFDX to install'
     required: false
   dev-hub-auth-url:
@@ -28,20 +28,15 @@ inputs:
     description: 'Value to prefix before regex result in commit status value'
     required: false
     default:
-  use-sf:
-    description: 'Option to use sf cli over sfdx cli'
-    required: false
-    default: 'False'
 runs:
     using: "composite"
     steps:
       - uses: actions/checkout@v3
       - name: Set Up CumulusCI
-        uses: MyClubHub/cumulusci-setup-cumulus@v1
+        uses: MyClubHub/cumulusci-setup-cumulus@v2
         with:
           cumulusci-version: '${{ inputs.cumulusci-version }}'
-          sfdx-version: '${{ inputs.sfdx-version }}'
-          use-sf: '${{ inputs.use-sf }}'
+          sf-version: '${{ inputs.sf-version }}'
       - name: Authorize Dev Hub
         uses: cumulus-actions/authorize-org@v1
         with:
