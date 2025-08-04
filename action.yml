@@ -33,7 +33,7 @@ runs:
     steps:
       - uses: actions/checkout@v3
       - name: Set Up CumulusCI
-        uses: MyClubHub/cumulusci-setup-cumulus@v3
+        uses: MyClubHub/cumulusci-setup-cumulus
         with:
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           sf-version: '${{ inputs.sf-version }}'
