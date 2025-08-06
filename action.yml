@@ -28,6 +28,10 @@ inputs:
     description: 'Value to prefix before regex result in commit status value'
     required: false
     default:
+  delete-scratch-org:
+    description: 'Specify whether to delete the Scratch org'
+    required: false
+    default: true
 runs:
     using: "composite"
     steps:
@@ -63,7 +67,7 @@ runs:
             -f context='${{ inputs.commit-status-name }}'
         shell: bash
       - name: Delete Scratch Org
-        if: ${{ always() }}
+        if: ${{ (inputs.delete-scratch-org == 'true' &&  always()) || (inputs.delete-scratch-org == 'false' && (failure() || cancelled())) }}
         run: |
           cci org scratch_delete '${{ inputs.org-name }}'
         shell: bash
