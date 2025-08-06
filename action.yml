@@ -66,12 +66,13 @@ runs:
             -f description="${{ inputs.commit-status-description-prefix }}$STATUS" \
             -f context='${{ inputs.commit-status-name }}'
         shell: bash
+      - name: Print Scratch Org
+        if: ${{ (inputs.delete-scratch-org == 'false' && success()) }}
+        run: |
+          cci org info '${{ inputs.org-name }}'
+        shell: bash
       - name: Delete Scratch Org
         if: ${{ (inputs.delete-scratch-org == 'true' &&  always()) || (inputs.delete-scratch-org == 'false' && (failure() || cancelled())) }}
         run: |
           cci org scratch_delete '${{ inputs.org-name }}'
-        shell: bash
-        if: ${{ (inputs.delete-scratch-org == 'false' && success()) }}
-        run: |
-          cci org info '${{ inputs.org-name }}'
         shell: bash
