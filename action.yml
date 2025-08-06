@@ -66,10 +66,26 @@ runs:
             -f description="${{ inputs.commit-status-description-prefix }}$STATUS" \
             -f context='${{ inputs.commit-status-name }}'
         shell: bash
-      - name: Print Scratch Org
+      - name: Print Scratch Org Information
         if: ${{ (inputs.delete-scratch-org == 'false' && success()) }}
         run: |
           cci org info '${{ inputs.org-name }}'
+        shell: bash
+      - name: Add IP range to System Admin Profile
+        if: ${{ (inputs.delete-scratch-org == 'false' && success()) }}
+        run: |
+          mkdir -p profiles
+          cat <<EOF > profiles/Admin.profile-meta.xml
+          <?xml version="1.0" encoding="UTF-8"?>
+          <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
+              <loginIpRanges>
+                  <description>Allow All</description>
+                  <endAddress>255.255.255.255</endAddress>
+                  <startAddress>0.0.0.0</startAddress>
+              </loginIpRanges>
+          </Profile>
+          EOF
+          cci task run deploy --path profiles/
         shell: bash
       - name: Delete Scratch Org
         if: ${{ (inputs.delete-scratch-org == 'true' &&  always()) || (inputs.delete-scratch-org == 'false' && (failure() || cancelled())) }}
