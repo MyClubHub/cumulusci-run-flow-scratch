@@ -85,7 +85,7 @@ runs:
               </loginIpRanges>
           </Profile>
           EOF
-          cci task run deploy --path profiles/
+          cci task run deploy --path profiles/ --org ${{ inputs.org-name }}
         shell: bash
       - name: Delete Scratch Org
         if: ${{ (inputs.delete-scratch-org == 'true' &&  always()) || (inputs.delete-scratch-org == 'false' && (failure() || cancelled())) }}
