@@ -73,7 +73,7 @@ runs:
           cci org info '${{ inputs.org-name }}'
         shell: bash
       - name: Delete Scratch Org
-        if: ${{ (inputs.delete-scratch-org == 'true' &&  always()) }}
+        if: ${{ (inputs.delete-scratch-org == 'true' &&  always()) || (inputs.delete-scratch-org == 'false' && (failure() || cancelled())) }}
         run: |
           cci org scratch_delete '${{ inputs.org-name }}'
         shell: bash
