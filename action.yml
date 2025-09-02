@@ -41,6 +41,7 @@ runs:
         with:
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           sf-version: '${{ inputs.sf-version }}'
+          delete-scratch-org: '${{ inputs.delete-scratch-org }}'
       - name: Authorize Dev Hub
         uses: cumulus-actions/authorize-org@v1
         with:
