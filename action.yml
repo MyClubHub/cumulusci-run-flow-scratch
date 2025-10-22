@@ -16,6 +16,7 @@ inputs:
   flow-name:
     description: 'Name of the Cumulus flow to execute'
     required: true
+    default: 'ci_feature_2gp'
   commit-status-name:
     description: 'Name of an optional extra commit status to set from build results'
     required: false
